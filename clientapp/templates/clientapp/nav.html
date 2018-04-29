@@ -1,0 +1,19 @@
+<nav>
+  <div class="nav-wrapper teal darken-2">
+    <a href='{% url "home" %}' class='brand-logo'>Garbage Collection</a>
+    <a href="#" data-activates='sidenav' class='button-collapse'> <i class='material-icons'>menu</i> </a>
+    <ul id='nav' class='right hide-on-med-and-down'>
+      <li> <a href="{% url 'home' %}">Home</a> </li>
+      <li> <a href="{% url 'contact_us' %}">Contact Us</a> </li>
+      {% if user.is_authenticated %}
+        <li> <a href="{% url 'request' %}">New request</a> </li>
+        <li> <a href="{% url 'requests' %}">Your requests</a> </li>
+        <li> <a href="{% url 'logout' %}">Logout ({{user.username}})</a> </li>
+      {% else %}
+        <li> <a href="{% url 'login' %}">Login</a> </li>
+      {% endif %}
+    </ul>
+
+    <ul class='side-nav' id='sidenav'></ul>
+  </div>
+</nav>

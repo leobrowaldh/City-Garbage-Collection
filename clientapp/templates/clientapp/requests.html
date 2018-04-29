@@ -1,0 +1,56 @@
+{% extends 'clientapp/base.html' %}
+
+{% block title %} Your Requests {% endblock %}
+
+{% block content %}
+
+  <h4>Your Requests</h4>
+  <div class="divider"> </div>
+  <br>
+  {% if requests %}
+    <div class="row">
+      <div class="col s12 m6">
+        {% for gcrequest in requests %}
+          {% if not forloop.counter|divisibleby:2 %}
+            <div class="card hoverable">
+              <div class="card-image">
+                <img src="{{gcrequest.image.url}}">
+                <span class="card-title" style="text-shadow:2px 1px 1px #555">Status: {{gcrequest.status}}</span>
+              </div>
+              <div class="card-content">
+                <p>{{gcrequest.description}}</p>
+              </div>
+              <div class="card-action">
+                <a href="https://www.google.com/maps/search/{{gcrequest.latitude}},{{gcrequest.longitde}}">Show location</a>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="col s12 m6">
+        {% for gcrequest in requests %}
+          {% if forloop.counter|divisibleby:2 %}
+            <div class="card hoverable">
+              <div class="card-image">
+                <img src="{{gcrequest.image.url}}">
+                <span class="card-title" style="text-shadow:2px 1px 1px #555">Status: {{gcrequest.status}}</span>
+              </div>
+              <div class="card-content">
+                <p>{{gcrequest.description}}</p>
+              </div>
+              <div class="card-action">
+                <a href="https://www.google.com/maps/search/{{gcrequest.latitude}},{{gcrequest.longitde}}">Show location</a>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <div class="container">
+      <div class="card-panel center-align valign-wrapper" style="min-height:200px;margin: 10px auto 10px auto;">
+        No Requests
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

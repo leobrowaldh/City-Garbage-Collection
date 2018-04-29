@@ -1,0 +1,33 @@
+{% extends 'clientapp/base.html' %}
+
+{% block title %} Contact Us {% endblock %}
+
+{% block head %}
+  <style>
+    .container{
+      margin-top: 5%;
+      width:50vmax
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<div class="card-panel">
+  <center>
+    <h3>Login</h3>
+    <div class="divider"> </div><br><br>
+    <form method="post">
+      {% csrf_token %}
+      <div class="input-field" style="width:300px">
+        <label>Username</label>
+        {{form.username}}
+      </div>
+      <div class="input-field" style="width:300px">
+        <label>Password</label>
+        {{form.password}}
+      </div>
+      <button type="submit" class='btn'>Login</button>
+    </form>
+  </center>
+</div>
+{% endblock %}

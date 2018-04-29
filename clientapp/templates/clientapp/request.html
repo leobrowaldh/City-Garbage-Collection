@@ -1,0 +1,87 @@
+{% extends 'clientapp/base.html' %}
+
+{% block title %} New Request {% endblock %}
+
+{% block content %}
+<div class="card-panel">
+  <h4>New Request</h4>
+  <br>
+  {% if form.errors %}
+  <span class='red-text'>Invalid input. Please check below for more details.</span>
+  {% endif %}
+  <form action="{% url 'post_request' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="input-field">
+      <label>Description</label>
+      <textarea id='id_description' name='description' class='materialize-textarea {% if form.description.errors %} invalid {% endif %}'></textarea>
+    </div>
+    <span class='red-text'>{% for error in form.description.errors %}{{error}}{% endfor %}</span>
+    <br>
+    <br>
+    Choose Image :<br><br> {{form.image}} <br> <br>
+    {{form.image.errors}}
+    <br>
+
+    Choose location: <br>
+    <br>
+    {{form.latitude}}
+    {{form.longitde}}
+
+    <div id='map' style="width:100%;height:500px;border:1px solid grey">
+
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#id_latitude').val(1000)
+        $('#id_longitde').val(1000)
+      })
+
+      var map,marker;
+      function initMap() {
+        // Initialize map and show the whole world
+        var pos = {lat: 45.513043, lng: -25.472229};
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 2,
+          center: pos
+        });
+
+        marker = new google.maps.Marker({map: map});
+
+        // Event for getting user input on map
+        google.maps.event.addListener(map, 'click', function(event) {
+          placeMarker(event.latLng);
+        });
+
+        // get user location, if success-zoom in to the location
+        navigator.geolocation.getCurrentPosition(function (position) {
+          placeMarker(new google.maps.LatLng({lat:position.coords.latitude,lng:position.coords.longitude}),true)
+        },function () {
+          Materialize.toast('Failed to get your location',2000)
+        },{timeout:5000});
+      }
+
+      function placeMarker(location,zoom) {
+        if(zoom){
+          map.setCenter(location)
+          map.setZoom(18)
+        }
+        marker.setPosition(location)
+
+        $('#id_latitude').val(location.lat().toFixed(10))
+        $('#id_longitde').val(location.lng().toFixed(10))
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJw86J2pqRRrlBjNoadttuZQd56W2zhJA&callback=initMap"></script>
+
+    {% if form.latitude.errors or form.longitde.errors %}
+    <span class="red-text">Please select location from the map</span>
+    {% endif %}
+    <br>
+    <br>
+    <br>
+    <button type="submit" class='btn'>Submit</button>
+  </form>
+</div>
+{% endblock %}

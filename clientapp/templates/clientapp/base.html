@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% include 'clientapp/includes.html' %}
+    {% block head %}{% endblock %}
+  </head>
+  <body class='grey lighten-4'>
+    {% include 'clientapp/nav.html' %}
+    <div class="container" style="overflow:hidden">
+      {% block content %}{% endblock %}
+    </div>
+    <footer class="teal darken-3 white-text page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m4">
+            <h5>Links</h5>
+            <a class='grey-text text-lighten-3' href="{% url 'home' %}">Home</a><br>
+            <a class='grey-text text-lighten-3' href="{% url 'contact_us' %}">Contact Us</a><br>
+            {% if user.is_authenticated %}
+              <a class='grey-text text-lighten-3' href="{% url 'request' %}">New request</a><br>
+              <a class='grey-text text-lighten-3' href="{% url 'requests' %}">Your requests</a><br>
+              <a class='grey-text text-lighten-3' href="{% url 'logout' %}">Logout ({{user.username}})</a><br>
+            {% else %}
+              <a class='grey-text text-lighten-3' href="{% url 'login' %}">Login</a><br>
+            {% endif %}
+          </div>
+            <div class="col s12 m8">
+              <h5>Be the change</h5>
+              <p>
+                By posting requests here, you are helping the
+                authoritites to help our Earth change for the better.
+                Earth needs us now more than ever. So, be the change. Thank you all :)
+              </p>
+            </div>
+        </div>
+      </div>
+      <div class="footer-copyright teal darken-4">
+        <div class="container center-align">
+          <span>Created by Bhanu Pratap Singh Rathore</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

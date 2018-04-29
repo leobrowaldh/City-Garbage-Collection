@@ -1,0 +1,80 @@
+{% extends 'clientapp/base.html' %}
+{% load static %}
+
+{% block title %} Home {% endblock %}
+
+{% block head %}
+<style media="screen">
+  #paper{
+    z-index:1 !important;
+  }
+  #bin{
+    z-index:2 !important;
+  }
+  .section{
+    margin:10px;
+    opacity: 0;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  <div class="section card-panel">
+    <h4>Welcome</h4>
+    <p>Hello!! Welcome, feel free to read on to know what's this site for.</p>
+  </div>
+
+  <div class="divider"> </div>
+
+  <div class="section card-panel">
+    <h5>So what's this for?</h5>
+    <p>The purpose is simple. This site provides a platform where registered citizens can post requests to the municipal corporation
+      to collect garbage in their neighborhood.</p>
+    <div id='garbage-anim'>
+      <center>
+        <img id='paper' src='{% static "clientapp/images/paper.png" %}' width=50 style="margin-bottom:-60px;" class='animated fadeInDown infinite'><br>
+        <img id='bin' src="{% static 'clientapp/images/bin.png' %}" width=100 style='margin-top:10px;' class='animated pulse infinite'>
+      </center>
+    </div>
+  </div>
+
+  <div class="divider"> </div>
+
+  <div class="section card-panel">
+    <h5>How to register?</h5>
+    <p>Just contact the authority. Contact details are given in the Contact Us page. You will be briefed about the documents required
+      for registration and the process of registration. Once successfully registered, you will get login credentials, using which you can
+      login and post a request for garbage collection whenever you find garbage piles around your neighborhood or any other place.
+    </p>
+  </div>
+
+  <div class="divider"> </div>
+
+  <div class="section card-panel">
+    <h5>How to post a request?</h5>
+    <p>
+      Follow these simple steps:
+    </p>
+    <ul class='browser-default'>
+      <li>Login with your credentials and click on 'New request'.</li>
+      <li>Fill the form by entering a brief description, upload an image of the garbage pile and choose the location in the given map.</li>
+      <li>Click submit and your request will be sent to the authorities.</li>
+      <li>You can check the status of your request on 'Your requests' page.</li>
+    </ul>
+    <p>
+      For any other queries you can contact us through the details given on the Contact Us page.
+    </p>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('.section').each(function (i) {
+        var element=$(this)
+        setTimeout(function () {
+          element.addClass('animated flipInX')
+          element.css('opacity',1)
+        },i*300)
+      })
+    })
+  </script>
+{% endblock %}
