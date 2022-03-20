@@ -8,6 +8,6 @@ urlpatterns=[
     path('request',views.request_view,name='request'),
     path('post_request',views.post_request,name='post_request'),
     path('requests',views.requests_view,name='requests'),
-    path('login',auth_views.login,{'template_name':'clientapp/login.html'},name='login'),
-    path('logout',auth_views.logout,{'next_page':'/'},name='logout')
+    path('login',auth_views.LoginView.as_view(),{'template_name':'clientapp/login.html'},name='login'),
+    path('logout',auth_views.LogoutView.as_view(),{'next_page':'/'},name='logout')
 ]
